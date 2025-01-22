@@ -1,0 +1,45 @@
+---
+infrastructure:
+  ## Networking spec
+  networks:
+    - name: "stg-vpc"
+      region: "us-central1"
+      subnets:
+        - name: "subnet-1"
+          cidr: "10.0.1.0/24"
+          private: true
+        - name: "subnet-2"
+          cidr: "10.0.2.0/24"
+          private: false
+
+  compute_instances: []
+  ## vms / can extend to kubernetes or other
+  #   - name: "web-server"
+  #     machine_type: "e2-medium"
+  #     zone: "us-central1-a"
+  #     network: "stg-vpc"
+  #     subnet: "subnet-1"
+  #     tags: ["http-server", "https-server"]
+  #     labels:
+  #       env: "stg"
+  #     service_account: "stg-sa"
+
+  storage_buckets:
+    - name: "app-assets"
+      location: "US"
+      versioning: true
+      lifecycle_rules:
+        - action: "Delete"
+          age_days: 90
+      labels:
+        env: "stg"
+      prefix: "stg-web"
+    - name: "backend-assets"
+      location: "US"
+      versioning: true
+      lifecycle_rules:
+        - action: "Delete"
+          age_days: 90
+      labels:
+        env: "stg"
+      prefix: "stg-web"

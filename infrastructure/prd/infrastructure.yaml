@@ -1,0 +1,34 @@
+---
+infrastructure:
+  networks:
+    - name: "prd-vpc"
+      region: "us-central1"
+      subnets:
+        - name: "subnet-1"
+          cidr: "10.0.1.0/24"
+          private: true
+        - name: "subnet-2"
+          cidr: "10.0.2.0/24"
+          private: false
+
+  compute_instances:
+    - name: "web-server"
+      machine_type: "e2-medium"
+      zone: "us-central1-a"
+      network: "prd-vpc"
+      subnet: "subnet-1"
+      tags: ["http-server", "https-server"]
+      labels:
+        env: "prd"
+      service_account: "prd-sa"
+
+  storage_buckets:
+    - name: "app-assets"
+      location: "US"
+      versioning: true
+      lifecycle_rules:
+        - action: "Delete"
+          age_days: 90
+      labels:
+        env: "prd"
+      prefix: "prd-web"

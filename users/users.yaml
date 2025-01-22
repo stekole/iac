@@ -1,0 +1,27 @@
+---
+users:
+  - username: "stefan"
+    email: "stefan@sandnetworks.com"
+    iam:
+      stg:
+        roles:
+          - "roles/viewer"
+          - "roles/storage.objectViewer"
+      prd:
+        roles:
+          - "roles/viewer"
+          - "roles/storage.objectViewer"
+    org_unit: "/admin"
+
+  - username: "admin"
+    email: "admin@sandnetworks.com"
+    iam:
+      stg:
+        roles:
+          - "roles/editor"
+          - "roles/bigquery.dataViewer"
+      prd:
+        roles:
+          - "roles/editor"
+          - "roles/bigquery.dataViewer"
+    org_unit: "/engineering"
